@@ -19,16 +19,17 @@ function kfp_votoabrios_crea_tablas() {
 	$tabla_voto      = $wpdb->prefix . 'votoabrios_voto';
 	$charset_collate = $wpdb->get_charset_collate();
 
-	$query1 = "CREATE TABLE IF NOT EXISTS $tabla_obra (
+	$query1 = "CREATE TABLE $tabla_obra (
 		id int(11) NOT NULL AUTO_INCREMENT,
 		autor varchar(250),
 		descripcion text,
 		UNIQUE (id)
 		) $charset_collate;";
-	$query2 = "CREATE TABLE IF NOT EXISTS $tabla_voto (
+	$query2 = "CREATE TABLE $tabla_voto (
 		id int(11) NOT NULL AUTO_INCREMENT,
 		obra_id int(11) NOT NULL,
 		ip varchar(15) NOT NULL,
+		fecha_voto datetime NOT NULL,
 		UNIQUE (id)
 		) $charset_collate;";
 	// La función dbDelta que nos permite crear tablas de manera segura se
