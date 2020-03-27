@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:  KFP Form Base
+ * Plugin Name:  KFP VotoABrios
  * Plugin URI:   https://github.com/kungfupress/kfp-votoabrios
- * Description:  Una buena base para hacer un formulario completamente personalizado en WordPress sin plugins de terceros. Inserta el shortcode [kfp_votoabrios]
+ * Description:  Votaciones sobre una colección de imágenes, de momento de voto único [kfp_votoabrios]
  * Version:      0.1.0
  * Author:       KungFuPress
  * Author URI:   https://kungfupress.com/
