@@ -86,13 +86,13 @@ function kpf_votoabrios_admin_scripts() {
 }
 
 // Prepara los hooks para borrar tickets con ajax.
-add_action( 'wp_ajax_kfp_ticket_borrar', 'kfp_ticket_borrar' );
+add_action( 'wp_ajax_kfp_votoabrios_ticket_borrar', 'kfp_votoabrios_ticket_borrar' );
 /**
  * Borra el ticket seleccionado
  *
  * @return void
  */
-function kfp_ticket_borrar() {
+function kfp_votoabrios_ticket_borrar() {
 	global $wpdb;
 	if ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_POST['nonce'] )
 		&& wp_verify_nonce(
