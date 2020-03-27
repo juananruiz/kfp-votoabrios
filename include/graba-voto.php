@@ -1,8 +1,8 @@
 <?php
 /**
- * File: kfp-form-base/include/graba-form.php
+ * File: kfp-votoabrios/include/graba-voto.php
  *
- * @package kfp_form_base
+ * @package kfp_votoabrios
  */
 
 defined( 'ABSPATH' ) || die();
@@ -11,8 +11,8 @@ defined( 'ABSPATH' ) || die();
 // logeados y el otro para el resto)
 // Lo que viene tras admin_post_ y admin_post_nopriv_ tiene que coincidir con
 // el valor del campo input con nombre "action" del formulario enviado.
-add_action( 'admin_post_kfp-form-base', 'kfp_graba_ticket' );
-add_action( 'admin_post_nopriv_kfp-form-base', 'kfp_graba_ticket' );
+add_action( 'admin_post_kfp-votoabrios', 'kfp_graba_ticket' );
+add_action( 'admin_post_nopriv_kfp-votoabrios', 'kfp_graba_ticket' );
 /**
  * Graba los datos enviados por el formulario como un nuevo CPT kfp-taller
  *
@@ -26,13 +26,13 @@ function kfp_graba_ticket() {
 		$url_origen = esc_url_raw( wp_unslash( $_POST['_wp_http_referer'] ) );
 	}
 	// Define condicion de error a priori y si la cosa sale bien cambia a 'success'
-	$query_arg = array( 'kfp-form-base-resultado' => 'error' );
+	$query_arg = array( 'kfp-votoabrios-resultado' => 'error' );
 	// Comprueba campos requeridos y nonce.
 	if ( isset( $_POST['asunto'] )
 	&& isset( $_POST['descripcion'] )
 	&& isset( $_POST['categoria_id'] )
-	&& isset( $_POST['kfp-form-base-nonce'] )
-	&& wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['kfp-form-base-nonce'] ) ), 'kfp-form-base' )
+	&& isset( $_POST['kfp-votoabrios-nonce'] )
+	&& wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['kfp-votoabrios-nonce'] ) ), 'kfp-votoabrios' )
 	) {
 		$asunto          = sanitize_text_field( wp_unslash( $_POST['asunto'] ) );
 		$descripcion       = sanitize_text_field( wp_unslash( $_POST['descripcion'] ) );
@@ -49,7 +49,7 @@ function kfp_graba_ticket() {
 			)
 		);
 		if ( $resultado ) {
-			$query_arg = array( 'kfp-form-base-resultado' => 'success' );
+			$query_arg = array( 'kfp-votoabrios-resultado' => 'success' );
 		}
 	}
 	wp_redirect( esc_url_raw( add_query_arg( $query_arg , $url_origen ) ) );

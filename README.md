@@ -1,3 +1,3 @@
-# KFP Form Base
+# KFP Voto a brios
 
-Una buena base para hacer un formulario completamente personalizado en WordPress sin plugins de terceros
+Un plugin para hacer votaciones sobre una colección de imágenes, de momento de voto único

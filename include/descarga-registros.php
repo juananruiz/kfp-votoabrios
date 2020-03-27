@@ -1,18 +1,18 @@
 <?php
 /**
- * File: kfp-form-base-/include/descarga-registros.php
+ * File: kfp-votoabrios/include/descarga-registros.php
  *
- * @package kfp_form_base
+ * @package kfp_votoabrios
  */
 
 defined( 'ABSPATH' ) || die();
 
-// Agrega el action hook solo si accion=kfp_form_base_descarga_csv.
-if ( isset( $_GET['accion'] ) && $_GET['accion'] == 'kfp_form_base_descarga_csv' ) {
-	add_action( 'admin_init', 'kfp_form_base_genera_csv' );
+// Agrega el action hook solo si accion=kfp_votoabrios_descarga_csv.
+if ( isset( $_GET['accion'] ) && $_GET['accion'] == 'kfp_votoabrios_descarga_csv' ) {
+	add_action( 'admin_init', 'kfp_votoabrios_genera_csv' );
 }
 
-function kfp_form_base_genera_csv() {
+function kfp_votoabrios_genera_csv() {
 	// Comprueba que el usuario actual tenga permisos suficientes.
 	if( !current_user_can( 'manage_options' ) ){
 		return false;
@@ -23,7 +23,7 @@ function kfp_form_base_genera_csv() {
 	}
 	// Comprueba Nonce.
 	$nonce = isset( $_GET['_wpnonce'] ) ? $_GET['_wpnonce'] : '';
-	if ( ! wp_verify_nonce( $nonce, 'kfp_form_base_descarga_csv' ) ) {
+	if ( ! wp_verify_nonce( $nonce, 'kfp_votoabrios_descarga_csv' ) ) {
 		die( 'Error de comprobación de seguridad' );
 	}
 	ob_start();

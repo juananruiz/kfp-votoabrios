@@ -1,19 +1,19 @@
 <?php
 /**
- * File: kfp-form-base/include/form-shortcode.php
+ * File: kfp-votoabrios/include/form-shortcode.php
  *
- * @package kfp_form_base
+ * @package kfp_votoabrios
  */
 
 defined( 'ABSPATH' ) || die();
 
-add_shortcode( 'kfp_form_base', 'kfp_form_base' );
+add_shortcode( 'kfp_votoabrios', 'kfp_votoabrios' );
 /**
  * Implementa formulario para crear un nuevo taller.
  *
  * @return string
  */
-function kfp_form_base() {
+function kfp_votoabrios() {
 	// Trae los categorias existentes a una variable.
 	// Esta variable recibirá un array de objetos de tipo taxonomy.
 	$categorias = get_terms(
@@ -24,17 +24,17 @@ function kfp_form_base() {
 		)
 	);
 	ob_start();
-	if ( filter_input( INPUT_GET, 'kfp-form-base-resultado', FILTER_SANITIZE_STRING ) === 'success' ) {
+	if ( filter_input( INPUT_GET, 'kfp-votoabrios-resultado', FILTER_SANITIZE_STRING ) === 'success' ) {
 		echo '<h4>Se ha grabado su solicitud correctamente</h4>';
 	}
-	if ( filter_input( INPUT_GET, 'kfp-form-base-resultado', FILTER_SANITIZE_STRING ) === 'error' ) {
+	if ( filter_input( INPUT_GET, 'kfp-votoabrios-resultado', FILTER_SANITIZE_STRING ) === 'error' ) {
 		echo '<h4>Se ha producido un error al grabar su solicitud</h4>';
 	}
 	?>
 	<form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post"
 		id="form_solicitud">
-		<?php wp_nonce_field( 'kfp-form-base', 'kfp-form-base-nonce' ); ?>
-		<input type="hidden" name="action" value="kfp-form-base">
+		<?php wp_nonce_field( 'kfp-votoabrios', 'kfp-votoabrios-nonce' ); ?>
+		<input type="hidden" name="action" value="kfp-votoabrios">
 		<div class="form-input">
 			<label for="asunto">Asunto</label>
 			<input type="text" name="asunto" id="asunto" required>

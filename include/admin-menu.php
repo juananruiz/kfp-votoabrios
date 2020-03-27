@@ -1,25 +1,25 @@
 <?php
 /**
- * File: kfp-form-base/include/admin-menu.php
+ * File: kfp-votoabrios/include/admin-menu.php
  *
- * @package kfp_form_base
+ * @package kfp_votoabrios
  */
 
 defined( 'ABSPATH' ) || die();
 
-add_action( 'admin_menu', 'kpf_form_base_menu' );
+add_action( 'admin_menu', 'kpf_votoabrios_menu' );
 /**
  * Agrega el menú de administración del plugin al escritorio de WordPress
  *
  * @return void
  */
-function kpf_form_base_menu() {
+function kpf_votoabrios_menu() {
 	add_menu_page(
 		'Tickets Soporte',
 		'Tickets',
 		'manage_options',
-		'kpf_form_base_menu',
-		'kpf_form_base_admin',
+		'kpf_votoabrios_menu',
+		'kpf_votoabrios_admin',
 		'dashicons-feedback',
 		75
 	);
@@ -30,15 +30,15 @@ function kpf_form_base_menu() {
  *
  * @return void
  */
-function kpf_form_base_admin() {
+function kpf_votoabrios_admin() {
 	global $wpdb;
 	$tabla_ticket = $wpdb->prefix . 'ticket';
 	$tickets      = $wpdb->get_results( "SELECT * FROM $tabla_ticket", OBJECT );
 
 	$html  = '<div class="wrap"><h1>Lista de tickets</h1>';
-	$html .= '<div class="dashicons-before dashicons-admin-page"><a href="' . admin_url( 'admin.php?page=kpf_form_base_menu' );
-	$html .= '&accion=kfp_form_base_descarga_csv&_wpnonce=';
-	$html .= wp_create_nonce( 'kfp_form_base_descarga_csv' ) . '">Descargar fichero CSV</a></div><br>';
+	$html .= '<div class="dashicons-before dashicons-admin-page"><a href="' . admin_url( 'admin.php?page=kpf_votoabrios_menu' );
+	$html .= '&accion=kfp_votoabrios_descarga_csv&_wpnonce=';
+	$html .= wp_create_nonce( 'kfp_votoabrios_descarga_csv' ) . '">Descargar fichero CSV</a></div><br>';
 	$html .= '<table class="wp-list-table widefat fixed striped">';
 	$html .= '<thead><tr><th>Asunto</th><th>Categoría</th><th>Descripción</th>';
 	$html .= '<th></th></tr></thead>';
@@ -53,35 +53,35 @@ function kpf_form_base_admin() {
 		$html .= "<td><a href='#' data-ticket_id='$ticket->id' class='ticket-borrar'>Borrar</a></td></tr>";
 	}
 	$html .= '</tbody></table></div>';
-	$html .= '<br><div class="dashicons-before dashicons-admin-page"><a href="' . admin_url( 'admin.php?page=kpf_form_base_menu' );
-	$html .= '&accion=kfp_form_base_descarga_csv&_wpnonce=';
-	$html .= wp_create_nonce( 'kfp_form_base_descarga_csv' ) . '">Descargar fichero CSV</a></div>';
+	$html .= '<br><div class="dashicons-before dashicons-admin-page"><a href="' . admin_url( 'admin.php?page=kpf_votoabrios_menu' );
+	$html .= '&accion=kfp_votoabrios_descarga_csv&_wpnonce=';
+	$html .= wp_create_nonce( 'kfp_votoabrios_descarga_csv' ) . '">Descargar fichero CSV</a></div>';
 	echo $html;
 }
 
-add_action( 'admin_enqueue_scripts', 'kpf_form_base_admin_scripts' );
+add_action( 'admin_enqueue_scripts', 'kpf_votoabrios_admin_scripts' );
 /**
  * Agrega el script que borra mediante AJAX las tickets desde el panel de administración
  *
  * @return void
  */
-function kpf_form_base_admin_scripts() {
+function kpf_votoabrios_admin_scripts() {
 	wp_register_script(
-		'kfp-form-base-admin',
-		KFP_FORM_BASE_URL . 'assets/kfp-admin-scripts.js',
+		'kfp-votoabrios-admin',
+		KFP_VOTOABRIOS_URL . 'assets/kfp-admin-scripts.js',
 		array( 'jquery' ),
-		KFP_FORM_BASE_VERSION,
+		KFP_VOTOABRIOS_VERSION,
 		false
 	);
 	wp_localize_script(
-		'kfp-form-base-admin',
+		'kfp-votoabrios-admin',
 		'ajax_object',
 		array(
 			'ajax_url'   => admin_url( 'admin-ajax.php' ),
 			'ajax_nonce' => wp_create_nonce( 'kfp_ticket_borrar_' . admin_url( 'admin-ajax.php' ) ),
 		)
 	);
-	wp_enqueue_script( 'kfp-form-base-admin' );
+	wp_enqueue_script( 'kfp-votoabrios-admin' );
 
 }
 
