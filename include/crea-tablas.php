@@ -1,33 +1,34 @@
 <?php
 /**
- * File: kfp-form-base/include/crea-tablas.php
+ * File: kfp-votoabrios/include/crea-tablas.php
  *
- * @package kfp_form_base
+ * @package kfp_votoabrios
  */
 
 defined( 'ABSPATH' ) || die();
 
-// Cuando el plugin se active se crea la tabla si no existe.
-register_activation_hook( KFP_FORM_BASE_PLUGIN_FILE, 'kfp_crea_tablas' );
-
+register_activation_hook( KFP_VOTOABRIOS_PLUGIN_FILE, 'kfp_crea_tablas' );
 /**
- * Realiza las acciones necesarias para configurar el plugin cuando se activa
+ * Cuando el plugin se active se crean las tablas si no existen.
  *
  * @return void
  */
 function kfp_crea_tablas() {
-	global $wpdb; // Este objeto global nos permite trabajar con la BD de WP
-	// Crea la tabla si no existe.
-	$tabla_ticket    = $wpdb->prefix . 'ticket';
+	global $wpdb;
+	$tabla_obra = $wpdb->prefix . '_votoabrios_obra';
+	$tabla_voto = $wpdb->prefix . '_votoabrios_voto';
 	$charset_collate = $wpdb->get_charset_collate();
 
-	$query = "CREATE TABLE IF NOT EXISTS $tabla_ticket (
-		id mediumint(9) NOT NULL AUTO_INCREMENT,
-		asunto varchar(250) NOT NULL,
-		descripcion text NOT NULL,
-		categoria_id mediumint(9) NOT NULL,
-		created_at datetime NOT NULL,
+	$query  = "CREATE TABLE IF NOT EXISTS $tabla_obra (
+		id int(11) NOT NULL AUTO_INCREMENT,
+		autor varchar(250),
+		descripcion text,
 		UNIQUE (id)
+		) $charset_collate;";
+	$query .= "CREATE TABLE IF NOT EXISTS $tabla_voto (
+		id int(11) NOT NULL AUTO_INCREMENT,
+		obra_id int(11) NOT NULL,
+		ip varchar(15) NOT NULL,
 		) $charset_collate;";
 	// La función dbDelta que nos permite crear tablas de manera segura se
 	// define en el fichero upgrade.php que se incluye a continuación.
