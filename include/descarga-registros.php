@@ -27,25 +27,27 @@ function kfp_votoabrios_genera_csv() {
 		die( 'Error de comprobación de seguridad' );
 	}
 	ob_start();
-	$filename = 'kfp-tickets-' . date('YmdHi') . '.csv';
+	$filename = 'kfp-votoabrios-' . date('YmdHi') . '.csv';
 
 	$fila_titulos = array(
-		'Asunto',
-		'Descripcion',
-		'Categoría',
-		'Fecha',
+		'Obra',
+		'Autor',
+		'Votos',
 	);
 	$filas_datos = array();
 	global $wpdb;
-	$tabla_ticket = $wpdb->prefix . 'ticket';
-	$tickets     = $wpdb->get_results( "SELECT * FROM $tabla_ticket", OBJECT);
-	foreach ( $tickets as $ticket ) {
-		$tax_categoria = get_term_by( 'id', $ticket->categoria_id, 'kfp-ticket-categoria' );
+	$votos     = $wpdb->get_results(
+		'SELECT obra.id as obra, count(voto.id) as votos
+		FROM wp_votoabrios_obra obra 
+		INNER JOIN wp_votoabrios_voto voto ON obra.id = voto.obra_id
+		GROUP BY obra.id;',
+		OBJECT
+	);
+	foreach ( $votos as $voto ) {
 		$fila = array(
-			$ticket->asunto, 
-			$ticket->descripcion,
-			$tax_categoria->name,
-			$ticket->created_at,
+			$voto->obra, 
+			$voto->autor,
+			$voto->votos,
 		);
 		$filas_datos[] = $fila;
 	}
