@@ -16,17 +16,19 @@ add_shortcode( 'kfp_votoabrios_obras', 'kfp_votoabrios_obras' );
 function kfp_votoabrios_obras() {
 	global $wpdb;
 	wp_enqueue_script( 'kfp-votoabrios-enlace-voto' );
-	$html = '';
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 	$obras = $wpdb->get_results(
 		"SELECT * FROM {$wpdb->prefix}votoabrios_obra"
 	);
+	$html  = '<div id="vista-previa-galeria">';
 	foreach ( $obras as $obra ) {
-		$html .= '<div><img src="/wp-content/uploads/artesplasticas1920/';
-		$html .= 'XXVIceapis' . $obra->id . '.jpg"><br>';
+		$html .= '<div><a class="miniatura-galeria" data-fancybox="gallery" ';
+		$html .= 'href="#"><img src="/wp-content/uploads/artesplasticas1920/';
+		$html .= 'XXVIceapis' . $obra->id . '.jpg"></a><br>';
 		$html .= '<span class="enlace"><a href="#" class="voto"';
 		$html .= 'data-obra-id="' . $obra->id . '">Votar obra ' . $obra->id . '</a></span></div>';
 	}
+	$html .= '</div>';
 	echo $html;
 }
 
@@ -52,4 +54,27 @@ function kfp_votoabrios_voto_script() {
 			'ajax_nonce' => wp_create_nonce( 'enlace_voto_' . admin_url( 'admin-ajax.php' ) ),
 		)
 	);
+
+	wp_register_script(
+		'kfp-votoabrios-lightbox',
+		KFP_GALERIA_PLUGIN_URL . '../assets/jquery.fancybox.min.js',
+		array( 'jquery' ),
+		KFP_GALERIA_VERSION,
+		true
+	);
+	wp_enqueue_script( 'kfp-votoabrios-lightbox' );
+	wp_register_style(
+		'kfp-votoabrios-lightbox-css',
+		KFP_GALERIA_PLUGIN_URL . '../assets/css/jquery.fancybox.min.css',
+		null,
+		KFP_GALERIA_VERSION
+	);
+	wp_enqueue_style( 'kfp-votoabrios-lightbox-css' );
+	wp_register_style(
+		'kfp-votoabrios-frontend-css',
+		KFP_GALERIA_PLUGIN_URL . '../assets/css/frontend.css',
+		null,
+		KFP_GALERIA_VERSION
+	);
+	wp_enqueue_style( 'kfp-votoabrios-frontend-css' );
 }
