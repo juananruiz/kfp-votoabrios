@@ -30,15 +30,21 @@ function kfp_votoabrios_graba_voto() {
 		$fecha_voto = date('Y-m-d H:i:s');
 		// Graba el voto en la base de datos
 		$tabla_voto = $wpdb->prefix . 'votoabrios_voto';
-		$resultado = $wpdb->insert(
-			$tabla_voto,
-			array(
-				'obra_id' => $obra_id,
-				'ip' => $ip_usuario,
-				'fecha_voto' => $fecha_voto,
-			)
-		);
-		$html = 'Tiene mi voto';
+		// Comprueba que no se haya votado ya desde esta IP
+		$voto_previo = $wpdb->get_var( "SELECT count(*) FROM $tabla_voto WHERE ip = '$ip_usuario';" );
+		if ( 0 == $voto_previo ) {
+			$resultado = $wpdb->insert(
+				$tabla_voto,
+				array(
+					'obra_id' => $obra_id,
+					'ip' => $ip_usuario,
+					'fecha_voto' => $fecha_voto,
+				)
+			);
+			$html = 'Tiene mi voto';
+		} else {
+			$html = 'Ya se ha votado desde esta IP';
+		}
 		echo $html;
 		die();
 	} else {
