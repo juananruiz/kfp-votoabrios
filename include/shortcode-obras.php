@@ -16,17 +16,23 @@ add_shortcode( 'kfp_votoabrios_obras', 'kfp_votoabrios_obras' );
 function kfp_votoabrios_obras() {
 	global $wpdb;
 	wp_enqueue_script( 'kfp-votoabrios-enlace-voto' );
+	wp_enqueue_script( 'kfp-votoabrios-fancybox' );
+	wp_enqueue_style( 'kfp-votoabrios-fancybox-css' );
+	wp_enqueue_style( 'kfp-votoabrios-frontend' );
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 	$obras = $wpdb->get_results(
 		"SELECT * FROM {$wpdb->prefix}votoabrios_obra"
 	);
 	$html  = '<div id="vista-previa-galeria">';
 	foreach ( $obras as $obra ) {
-		$html .= '<div><a class="miniatura-galeria" data-fancybox="gallery" ';
-		$html .= 'href="#"><img src="/wp-content/uploads/artesplasticas1920/';
-		$html .= 'XXVIceapis' . $obra->id . '.jpg"></a><br>';
+		$html .= '<article class="obra"><figure class="miniatura">';
+		$html .= '<a class="miniatura-galeria" data-fancybox="gallery" ';
+		$html .= 'href="/wp-content/uploads/artesplasticas1920/obra_' . $obra->id;
+		$html .= '_imagen.jpg"><img src="/wp-content/uploads/artesplasticas1920/';
+		$html .= 'obra_' . $obra->id . '_imagen_th.jpg"></a></figure>';
 		$html .= '<span class="enlace"><a href="#" class="voto"';
-		$html .= 'data-obra-id="' . $obra->id . '">Votar obra ' . $obra->id . '</a></span></div>';
+		$html .= 'data-obra-id="' . $obra->id . '">Votar obra ' . $obra->id . '</a>';
+		$html .= '</span></article>';
 	}
 	$html .= '</div>';
 	echo $html;
@@ -41,7 +47,7 @@ add_action( 'wp_enqueue_scripts', 'kfp_votoabrios_voto_script' );
 function kfp_votoabrios_voto_script() {
 	wp_register_script(
 		'kfp-votoabrios-enlace-voto',
-		plugins_url( '../assets/enlace-voto.js', __FILE__ ),
+		KFP_VOTOABRIOS_URL . 'assets/enlace-voto.js',
 		array( 'jquery' ),
 		KFP_VOTOABRIOS_VERSION,
 		false
@@ -54,27 +60,23 @@ function kfp_votoabrios_voto_script() {
 			'ajax_nonce' => wp_create_nonce( 'enlace_voto_' . admin_url( 'admin-ajax.php' ) ),
 		)
 	);
-
 	wp_register_script(
-		'kfp-votoabrios-lightbox',
-		KFP_GALERIA_PLUGIN_URL . '../assets/jquery.fancybox.min.js',
+		'kfp-votoabrios-fancybox',
+		KFP_VOTOABRIOS_URL . 'assets/jquery.fancybox.min.js',
 		array( 'jquery' ),
-		KFP_GALERIA_VERSION,
-		true
+		KFP_VOTOABRIOS_VERSION,
+		false
 	);
-	wp_enqueue_script( 'kfp-votoabrios-lightbox' );
 	wp_register_style(
-		'kfp-votoabrios-lightbox-css',
-		KFP_GALERIA_PLUGIN_URL . '../assets/css/jquery.fancybox.min.css',
+		'kfp-votoabrios-fancybox-css',
+		KFP_VOTOABRIOS_URL . 'assets/jquery.fancybox.min.css',
 		null,
-		KFP_GALERIA_VERSION
+		KFP_VOTOABRIOS_VERSION
 	);
-	wp_enqueue_style( 'kfp-votoabrios-lightbox-css' );
 	wp_register_style(
-		'kfp-votoabrios-frontend-css',
-		KFP_GALERIA_PLUGIN_URL . '../assets/css/frontend.css',
+		'kfp-votoabrios-frontend',
+		KFP_VOTOABRIOS_URL . 'assets/frontend.css',
 		null,
-		KFP_GALERIA_VERSION
+		KFP_VOTOABRIOS_VERSION
 	);
-	wp_enqueue_style( 'kfp-votoabrios-frontend-css' );
 }
