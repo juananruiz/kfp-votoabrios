@@ -19,8 +19,10 @@ define( 'KFP_VOTOABRIOS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'KFP_VOTOABRIOS_URL', plugin_dir_url( __FILE__ ) );
 define( 'KFP_VOTOABRIOS_VERSION', '0.1.0' );
 
-// Crea tabla.
+// Crea tablas si no existen.
 require_once KFP_VOTOABRIOS_DIR . 'include/crea-tablas.php';
+// Inserta obras si no existen.
+require_once KFP_VOTOABRIOS_DIR . 'include/inserta-obras.php';
 // Agrega shortcode [kfp_votoabrios] para mostrar lista de obras.
 require_once KFP_VOTOABRIOS_DIR . 'include/shortcode-obras.php';
 // Agrega función para que admin-post.php capture el envío de un nuevo taller desde un formulario.
