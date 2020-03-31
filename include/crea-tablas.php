@@ -22,7 +22,7 @@ function kfp_votoabrios_crea_tablas() {
 	$query1 = "CREATE TABLE $tabla_obra (
 		id int(11) NOT NULL AUTO_INCREMENT,
 		autor varchar(250),
-		descripcion text,
+		titulo text,
 		UNIQUE (id)
 		) $charset_collate;";
 	$query2 = "CREATE TABLE $tabla_voto (
