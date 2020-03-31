@@ -7,30 +7,49 @@
 
 defined( 'ABSPATH' ) || die();
 
-add_action( 'admin_menu', 'kpf_votoabrios_menu' );
+add_action( 'admin_menu', 'kfp_certamen_crea_menu_admin' );
 /**
- * Agrega el menú de administración del plugin al escritorio de WordPress
+ * Crea el menú de administración del plugin en el escritorio de WordPress
  *
  * @return void
  */
-function kpf_votoabrios_menu() {
+function kfp_certamen_crea_menu_admin() {
 	add_menu_page(
-		'Voto a Brios',
+		'Certamen',
+		'Certamen',
+		'manage_options',
+		'kfp_certamen_admin',
+		'',
+		'dashicons-megaphone',
+		75
+	);
+	remove_submenu_page(
+		'kfp_certamen_admin',
+		'kfp_certamen_admin'
+	);
+	add_submenu_page(
+		'kfp_certamen_admin',
+		'Obras Certamen',
+		'Obras',
+		'manage_options',
+		'kfp_certamen_obras',
+		'kfp_certamen_crea_panel_obras'
+	);
+	add_submenu_page(
+		'kfp_certamen_admin',
+		'Votos Certamen',
 		'Votos',
 		'manage_options',
-		'kpf_votoabrios_menu',
-		'kpf_votoabrios_admin',
-		'dashicons-thumbs-up',
-		75
+		'kfp_certamen_votos',
+		'kfp_certamen_crea_panel_votos'
 	);
 }
 
-/**
- * Agrega el panel de administración del plugin al escritorio
- *
- * @return void
- */
-function kpf_votoabrios_admin() {
+function kfp_certamen_crea_panel_obras() {
+	echo 'Obras';
+}
+
+function kfp_certamen_crea_panel_votos() {
 	global $wpdb;
 	$votos = $wpdb->get_results(
 		'SELECT obra.id as obra, count(voto.id) as votos
@@ -41,7 +60,7 @@ function kpf_votoabrios_admin() {
 	);
 
 	$html  = '<div class="wrap"><h1>Registro de votos</h1>';
-	$html .= '<div class="dashicons-before dashicons-admin-page"><a href="' . admin_url( 'admin.php?page=kpf_votoabrios_menu' );
+	$html .= '<div class="dashicons-before dashicons-admin-page"><a href="' . admin_url( 'admin.php?page=kfp_certamen_votos' );
 	$html .= '&accion=kfp_votoabrios_descarga_csv&_wpnonce=';
 	$html .= wp_create_nonce( 'kfp_votoabrios_descarga_csv' ) . '">Descargar fichero CSV</a></div><br>';
 	$html .= '<table class="wp-list-table widefat fixed striped">';
