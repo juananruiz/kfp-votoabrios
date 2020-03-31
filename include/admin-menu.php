@@ -140,7 +140,7 @@ function kfp_certamen_actualiza_obra() {
 function kfp_certamen_crea_panel_votos() {
 	global $wpdb;
 	$votos = $wpdb->get_results(
-		'SELECT obra.id as obra_id, obra.autor as autor, count(voto.id) as votos
+		'SELECT obra.id as obra_id, obra.autor as autor, obra.titulo as titulo, count(voto.id) as votos
 		FROM wp_votoabrios_obra obra 
 		INNER JOIN wp_votoabrios_voto voto ON obra.id = voto.obra_id
 		GROUP BY obra.id;',
@@ -152,14 +152,15 @@ function kfp_certamen_crea_panel_votos() {
 	$html .= '&accion=kfp_votoabrios_descarga_csv&_wpnonce=';
 	$html .= wp_create_nonce( 'kfp_votoabrios_descarga_csv' ) . '">Descargar fichero CSV</a></div><br>';
 	$html .= '<table class="wp-list-table widefat fixed striped">';
-	$html .= '<thead><tr><th>Obra</th><th>Autor</th><th>Votos</th>';
+	$html .= '<thead><tr><th>ID Obra</th><th>Autor</th><th>Título</th><th>Votos</th>';
 	$html .= '<th></th></tr></thead>';
 	$html .= '<tbody id="the-list">';
 	foreach ( $votos as $voto ) {
 		$obra  = (int) $voto->obra_id;
 		$autor = esc_textarea( $voto->autor );
+		$titulo = esc_textarea( $voto->titulo );
 		$votos = (int) $voto->votos;
-		$html .= "<tr><td>$obra</td><td>$autor</td><td>$votos</td>";
+		$html .= "<tr><td>$obra</td><td>$autor</td><td>$titulo</td><td>$votos</td>";
 		$html .= '</tr>';
 	}
 	$html .= '</tbody></table></div>';
