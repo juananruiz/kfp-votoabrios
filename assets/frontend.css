@@ -8,8 +8,9 @@
 }
 
 .obra {
-	padding: 1rem 0;
+	padding: 2rem 0;
 	text-align: center;
+	line-height: 1;
 }
 
 span.enlace {
