@@ -9,9 +9,9 @@ defined( 'ABSPATH' ) || die();
 
 add_shortcode( 'kfp_votoabrios_obras', 'kfp_votoabrios_obras' );
 /**
- * Implementa formulario para crear un nuevo taller.
+ * Muestra la galería de obras.
  *
- * @return void
+ * @return string
  */
 function kfp_votoabrios_obras() {
 	global $wpdb;
@@ -28,7 +28,8 @@ function kfp_votoabrios_obras() {
 		$html .= '<article class="obra"><figure class="miniatura">';
 		$html .= '<a class="miniatura-galeria" data-fancybox="gallery" ';
 		$html .= 'href="/wp-content/uploads/artesplasticas1920/obra_' . $obra->id;
-		$html .= '_imagen.jpg"><img src="/wp-content/uploads/artesplasticas1920/';
+		$html .= '_imagen.jpg" data-caption="' . $obra->autor . ' · ';
+		$html .= $obra->titulo . '"><img src="/wp-content/uploads/artesplasticas1920/';
 		$html .= 'obra_' . $obra->id . '_imagen_th.jpg"></a><figure>';
 		$html .= '<span class="enlace">' . $obra->autor . '</span><br>';
 		$html .= '<span class="enlace">' . $obra->titulo . '</span><br>';
@@ -37,7 +38,7 @@ function kfp_votoabrios_obras() {
 		$html .= '</span></article>';
 	}
 	$html .= '</div>';
-	echo $html;
+	return $html;
 }
 
 add_action( 'wp_enqueue_scripts', 'kfp_votoabrios_voto_script' );
