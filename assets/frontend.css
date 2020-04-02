@@ -8,10 +8,11 @@
 }
 
 .obra {
-	padding: 2rem 0;
+	padding: 2rem;
 	text-align: center;
 	line-height: 1;
-	margin: 15px 40px;
+	margin: 2rem;
+	border: 1px solid #ddd;
 }
 
 span.enlace {
