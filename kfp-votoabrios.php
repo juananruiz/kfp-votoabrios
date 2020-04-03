@@ -3,7 +3,7 @@
  * Plugin Name:  KFP VotoABrios
  * Plugin URI:   https://github.com/kungfupress/kfp-votoabrios
  * Description:  Votaciones sobre una colección de imágenes, de momento de voto único [kfp_votoabrios_obras]
- * Version:      0.1.0
+ * Version:      0.2.0
  * Author:       KungFuPress
  * Author URI:   https://kungfupress.com/
  * PHP Version:  5.6
@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || die();
 define( 'KFP_VOTOABRIOS_PLUGIN_FILE', __FILE__ );
 define( 'KFP_VOTOABRIOS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'KFP_VOTOABRIOS_URL', plugin_dir_url( __FILE__ ) );
-define( 'KFP_VOTOABRIOS_VERSION', '0.1.0' );
+define( 'KFP_VOTOABRIOS_VERSION', '0.2.0' );
 
 // Crea tablas si no existen.
 require_once KFP_VOTOABRIOS_DIR . 'include/crea-tablas.php';
