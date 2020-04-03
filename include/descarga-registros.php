@@ -32,12 +32,13 @@ function kfp_votoabrios_genera_csv() {
 	$fila_titulos = array(
 		'Obra',
 		'Autor',
+		'Título',
 		'Votos',
 	);
 	$filas_datos = array();
 	global $wpdb;
 	$votos     = $wpdb->get_results(
-		'SELECT obra.id as obra, count(voto.id) as votos
+		'SELECT obra.id as obra, obra.autor as autor, obra.titulo as titulo, count(voto.id) as votos
 		FROM wp_votoabrios_obra obra 
 		INNER JOIN wp_votoabrios_voto voto ON obra.id = voto.obra_id
 		GROUP BY obra.id;',
@@ -47,6 +48,7 @@ function kfp_votoabrios_genera_csv() {
 		$fila = array(
 			$voto->obra, 
 			$voto->autor,
+			$voto->titulo,
 			$voto->votos,
 		);
 		$filas_datos[] = $fila;

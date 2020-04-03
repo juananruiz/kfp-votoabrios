@@ -166,8 +166,8 @@ function kfp_certamen_crea_panel_votos() {
 		$html .= '</tr>';
 	}
 	$html .= '</tbody></table></div>';
-	$html .= '<br><div class="dashicons-before dashicons-admin-page"><a href="' . admin_url( 'admin.php?page=kfp_votoabrios_menu' );
+	$html .= '<br><div class="dashicons-before dashicons-admin-page"><a href="' . admin_url( 'admin.php?page=kfp_certamen_votos' );
 	$html .= '&accion=kfp_votoabrios_descarga_csv&_wpnonce=';
-	$html .= wp_create_nonce( 'kfp_votoabrios_descarga_csv' ) . '">Descargar fichero CSV</a></div>';
+	$html .= wp_create_nonce( 'kfp_votoabrios_descarga_csv' ) . '">Descargar fichero CSV</a></div><br>';
 	echo $html;
 }
