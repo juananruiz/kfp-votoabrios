@@ -77,25 +77,27 @@ function kfp_certamen_crea_panel_obras() {
 			'ajax_nonce' => wp_create_nonce( 'ajax_update_' . admin_url( 'admin-ajax.php' ) ),
 		)
 	);
-	$obras = $wpdb->get_results(
-		'SELECT obra.id, obra.autor, obra.titulo
-		FROM wp_votoabrios_obra obra;',
-		OBJECT
-	);
+	$obras = $wpdb->get_results( 'SELECT * FROM wp_votoabrios_obra;', OBJECT );
 
 	$html  = '<div class="wrap"><h1>Lista de obras</h1>';
 	$html .= '<table class="wp-list-table widefat fixed striped">';
-	$html .= '<thead><tr><th width="2%">ID</th><th width="28%">Autor</th><th  width="70%">Título</th>';
-	$html .= '<th></th></tr></thead>';
+	$html .= '<thead><tr><th width="2%">ID</th><th>Autor</th>';
+	$html .= '<th>Título</th><th>Dimensiones</th><th>Técnica</th>';
+	$html .= '</tr></thead>';
 	$html .= '<tbody id="the-list">';
 	foreach ( $obras as $obra ) {
-		$obra_id = (int) $obra->id;
-		$autor   = esc_textarea( $obra->autor );
-		$titulo  = esc_textarea( $obra->titulo );
-		$html   .= "<tr data-obra_id='$obra->id'><td>$obra_id</td>";
-		$html   .= "<td><input type='text' class='ajax-edit regular-text' name='autor' value='$autor'></td>";
-		$html   .= "<td><input type='text' class='ajax-edit regular-text' name='titulo' value='$titulo'></td>";
-		$html   .= '</tr>';
+		$obra_id     = (int) $obra->id;
+		$autor       = esc_textarea( $obra->autor );
+		$titulo      = esc_textarea( $obra->titulo );
+		$dimensiones = esc_textarea( $obra->dimensiones );
+		$tecnica     = esc_textarea( $obra->tecnica );
+
+		$html .= "<tr data-obra_id='$obra->id'><td>$obra_id</td>";
+		$html .= "<td><input type='text' class='ajax-edit regular-text' name='autor' value='$autor'></td>";
+		$html .= "<td><input type='text' class='ajax-edit regular-text' name='titulo' value='$titulo'></td>";
+		$html .= "<td><input type='text' class='ajax-edit regular-text' name='dimensiones' value='$dimensiones'></td>";
+		$html .= "<td><input type='text' class='ajax-edit regular-text' name='tecnica' value='$tecnica'></td>";
+		$html .= '</tr>';
 	}
 	$html .= '</tbody></table></div>';
 	echo $html;
