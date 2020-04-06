@@ -33,9 +33,9 @@ function kfp_votoabrios_obras() {
 		$html .= '"><img src="/wp-content/uploads/artesplasticas1920/';
 		$html .= 'obra_' . $obra->id . '_imagen_th.jpg"></a><figure>';
 		$html .= '<span class="enlace">' . $obra->autor . '</span><br>';
-		$html .= '<span class="enlace"><strong>' . $obra->titulo . '</strong></span><br>';
-		$html .= '<span class="enlace">' . $obra->dimensiones . '</span><br>';
-		$html .= '<span class="enlace">' . $obra->tecnica . '</span><br>';
+		$html .= '<span class="enlace"><strong>' . wp_trim_words( $obra->titulo, 8, '...' ) . '</strong></span><br>';
+		$html .= '<span class="enlace">' . wp_trim_words( $obra->dimensiones, 8, '...' ) . '</span><br>';
+		$html .= '<span class="enlace">' . wp_trim_words( $obra->tecnica, 8, '...' ) . '</span><br>';
 		$html .= '<span class="enlace"><a href="#" class="voto"';
 		$html .= 'data-obra-id="' . $obra->id . '">Votar obra ' . $obra->id . '</a>';
 		$html .= '</span></article>';
