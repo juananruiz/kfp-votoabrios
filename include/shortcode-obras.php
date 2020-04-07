@@ -13,16 +13,28 @@ add_shortcode( 'kfp_votoabrios_obras', 'kfp_votoabrios_obras' );
  *
  * @return string
  */
-function kfp_votoabrios_obras() {
+function kfp_votoabrios_obras( $atts = [], $content = null, $tag = '' ) {
+	// normalize attribute keys, lowercase.
+	$atts = array_change_key_case( (array) $atts, CASE_LOWER );
+	// override default attributes with user attributes.
+	$shortcode_atts = shortcode_atts(
+		[
+			'ver_todo' => 'false',
+		],
+		$atts,
+		$tag
+	);
 	global $wpdb;
 	wp_enqueue_script( 'kfp-votoabrios-enlace-voto' );
 	wp_enqueue_script( 'kfp-votoabrios-fancybox' );
 	wp_enqueue_style( 'kfp-votoabrios-fancybox-css' );
 	wp_enqueue_style( 'kfp-votoabrios-frontend' );
+	$query = "SELECT * FROM {$wpdb->prefix}votoabrios_obra";
+	if ( 'false' === $shortcode_atts['ver_todo'] ) {
+		$query .= ' WHERE es_publica = 1';
+	}
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-	$obras = $wpdb->get_results(
-		"SELECT * FROM {$wpdb->prefix}votoabrios_obra"
-	);
+	$obras = $wpdb->get_results( $query );
 	$html  = '<div id="vista-previa-galeria">';
 	foreach ( $obras as $obra ) {
 		$html .= '<article class="obra"><figure class="miniatura">';

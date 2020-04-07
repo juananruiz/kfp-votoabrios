@@ -81,18 +81,20 @@ function kfp_certamen_crea_panel_obras() {
 
 	$html  = '<div class="wrap"><h1>Lista de obras</h1>';
 	$html .= '<table class="wp-list-table widefat fixed striped">';
-	$html .= '<thead><tr><th width="2%">ID</th><th>Autor</th>';
+	$html .= '<thead><tr><th width="2%">ID</th><th width="1%">P</th><th>Autor</th>';
 	$html .= '<th>Título</th><th>Dimensiones</th><th>Técnica</th>';
 	$html .= '</tr></thead>';
 	$html .= '<tbody id="the-list">';
 	foreach ( $obras as $obra ) {
 		$obra_id     = (int) $obra->id;
+		$es_publica  = (int) $obra->es_publica;
 		$autor       = esc_textarea( $obra->autor );
 		$titulo      = esc_textarea( $obra->titulo );
 		$dimensiones = esc_textarea( $obra->dimensiones );
 		$tecnica     = esc_textarea( $obra->tecnica );
 
 		$html .= "<tr data-obra_id='$obra->id'><td>$obra_id</td>";
+		$html .= "<td><input type='text' class='ajax-edit small-text' name='es_publica' value='$es_publica'></td>";
 		$html .= "<td><input type='text' class='ajax-edit regular-text' name='autor' value='$autor'></td>";
 		$html .= "<td><input type='text' class='ajax-edit regular-text' name='titulo' value='$titulo'></td>";
 		$html .= "<td><input type='text' class='ajax-edit regular-text' name='dimensiones' value='$dimensiones'></td>";

@@ -15,7 +15,7 @@ register_activation_hook( KFP_VOTOABRIOS_PLUGIN_FILE, 'kfp_votoabrios_crea_tabla
  */
 function kfp_votoabrios_crea_tablas() {
 	global $wpdb;
-	$tabla_certamen   = $wpdb->prefix . 'votoabrios_certamen';
+	$tabla_certamen  = $wpdb->prefix . 'votoabrios_certamen';
 	$tabla_obra      = $wpdb->prefix . 'votoabrios_obra';
 	$tabla_voto      = $wpdb->prefix . 'votoabrios_voto';
 	$charset_collate = $wpdb->get_charset_collate();
@@ -34,6 +34,7 @@ function kfp_votoabrios_crea_tablas() {
 		titulo text,
 		dimensiones varchar(250),
 		tecnica text,
+		es_publica int(4) NOT NULL DEFAULT '1',
 		UNIQUE (id)
 		) $charset_collate;";
 	$sql[] = "CREATE TABLE {$tabla_voto} (
